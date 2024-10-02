@@ -1,0 +1,20 @@
+version: '3.9'
+
+services:
+  db:
+    container_name: mysql-container
+    image: mysql:8.3
+    platform: linux/x86_64
+    restart: unless-stopped
+    ports:
+      - 3306:3306
+    environment:
+      # MYSQL_ALLOW_EMPTY_PASSWORD: 1
+      # MYSQL_DATABASE: ${DATABASE_NAME}
+      MYSQL_ROOT_PASSWORD: lapphan
+    command: mysqld --default-authentication-plugin=caching_sha2_password --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    volumes:
+      - mysqldb:/var/lib/mysql
+      - C:/Users/LAP PHAN/source/repos/AnonymousChatting/AnonymousChatting/InitSql/Init.sql:/docker-entrypoint-initdb.d/Init.sql
+volumes:
+  mysqldb:

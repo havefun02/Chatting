@@ -1,11 +1,39 @@
 {
   "Version": 1,
-  "Hash": "E/TfEsyudzsq9HsawD9rHvD76u+C77kZf6fFiLTflwg=",
+  "Hash": "JY6S76yhOr9SiJ1adxoWXmPIY6lI3SFFwO/16HfX35k=",
   "Source": "AnonymousChatting",
   "BasePath": "_content/AnonymousChatting",
   "Mode": "Default",
   "ManifestType": "Build",
   "ReferencedProjectsConfiguration": [],
-  "DiscoveryPatterns": [],
-  "Assets": []
+  "DiscoveryPatterns": [
+    {
+      "Name": "AnonymousChatting\\wwwroot",
+      "Source": "AnonymousChatting",
+      "ContentRoot": "C:\\Users\\LAP PHAN\\source\\repos\\AnonymousChatting\\AnonymousChatting\\wwwroot\\",
+      "BasePath": "_content/AnonymousChatting",
+      "Pattern": "**"
+    }
+  ],
+  "Assets": [
+    {
+      "Identity": "C:\\Users\\LAP PHAN\\source\\repos\\AnonymousChatting\\AnonymousChatting\\wwwroot\\css\\site.css",
+      "SourceId": "AnonymousChatting",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\LAP PHAN\\source\\repos\\AnonymousChatting\\AnonymousChatting\\wwwroot\\",
+      "BasePath": "_content/AnonymousChatting",
+      "RelativePath": "css/site.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\site.css"
+    }
+  ]
 }

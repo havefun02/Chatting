@@ -1,0 +1,194 @@
+
+@media(max-width:576px)  {
+    #loadingMessages {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        background-color: transparent;
+        z-index: 1;
+        display: none;
+        padding-top: 3px;
+        font-size: 10px
+    }
+    .input-box {
+        height: 40px;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    .message-box {
+        padding-left: 10px;
+        padding-top: 10px;
+        padding-right: 10px;
+        height: 350px;
+        max-height: 350px;
+        flex-grow: 1;
+        border: 1px solid #808080;
+        border-radius: 3px;
+        overflow-y: auto;
+        word-wrap: break-word; /* Force long text to break to the next line */
+        position: relative;
+    }
+    .chat-input {
+        padding-left: 10px;
+        font-size: 12px;
+        line-height: 14px;
+        height: 100%;
+        width: 100%;
+        max-height: 100%;
+        border: 1px solid #808080;
+        border-radius: 10px;
+        overflow-y: scroll; /* Prevent manual resizing */
+        word-wrap: break-word; /* Force long text to break to the next line */
+    }
+    .chat-input:focus {
+        outline: 1px solid #808080;
+    }
+    .message-box p{
+        font-size:12px;
+        line-height:14px;
+        margin-bottom:3px;
+    }
+    .message-box p em{
+        font-size: 10px;
+        margin-left:3px;
+    }
+
+    .message-box p strong {
+        margin-right: 5px
+    }
+    .send-button {
+        width: 50px;
+        padding: 5px 0
+    }
+}
+
+@media (max-width:768px) and (min-width :576px) {
+    #loadingMessages {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        background-color: transparent;
+        z-index: 1;
+        display: none;
+        padding-top: 4px;
+        font-size: 13px
+    }
+    .input-box {
+        height: 50px;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    .message-box {
+        padding-left: 10px;
+        padding-top: 10px;
+        height: 350px;
+        max-height: 350px;
+        flex-grow: 1;
+        border: 1px solid #808080;
+        border-radius: 3px;
+        overflow-y: auto; position: relative;
+    }
+    .chat-input {
+        padding-left: 10px;
+        font-size: 15px;
+        line-height: 16px;
+        height: 100%;
+        width: 100%;
+        max-height: 100%;
+        border: 1px solid #808080;
+        border-radius: 10px;
+        overflow-y: scroll; /* Prevent manual resizing */
+        word-wrap: break-word; /* Force long text to break to the next line */
+    }
+    .chat-input:focus {
+        outline: 1px solid #808080;
+    }
+    .message-box p {
+        font-size: 15px;
+        line-height: 16px;
+        margin-bottom: 5px;
+    }
+
+    .message-box p em {
+        font-size: 12px;
+        margin-left: 4px;
+    }
+    .message-box p strong {
+        margin-right: 7px
+    }
+    .send-button {
+        width: 60px;
+        padding: 5px 0
+    }
+}
+
+@media (min-width: 992px) {
+    #loadingMessages {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        background-color: transparent;
+        z-index: 1;
+        display: none;
+        padding-top: 5px;
+        font-size:15px
+        
+    }
+    .send-button {
+        width: 80px;
+        padding: 5px 0
+    }
+    .input-box {
+        height: 50px;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    .message-box {
+        padding-left: 10px;
+        padding-top: 10px;
+        height: 350px;
+        max-height: 350px;
+        flex-grow: 1;
+        border: 1px solid #808080;
+        border-radius: 3px;
+        overflow-y: auto;
+        position: relative;
+    }
+    .chat-input {
+        padding-left:10px;
+        font-size:18px;
+        line-height:20px;
+        height: 100%;
+        width: 100%;
+        border: 1px solid #808080;
+        border-radius: 10px;
+        overflow-y: scroll; /* Prevent manual resizing */
+        word-wrap: break-word; /* Force long text to break to the next line */
+    }
+    .chat-input:focus {
+        outline: 1px solid #808080;
+    }
+    .message-box p {
+        font-size: 18px;
+        line-height: 20px;
+        margin-bottom: 7px;
+    }
+
+    .message-box p em {
+        font-size: 14px;
+        margin-left: 5px;
+    }
+    .message-box p strong {
+        margin-right:10px
+    }
+
+}

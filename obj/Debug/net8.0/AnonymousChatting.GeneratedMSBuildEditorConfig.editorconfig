@@ -18,10 +18,14 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = C:\Users\LAP PHAN\source\repos\AnonymousChatting\AnonymousChatting
 build_property._RazorSourceGeneratorDebug = 
 
-[C:/Users/LAP PHAN/source/repos/AnonymousChatting/AnonymousChatting/Views/Shared/_Layout.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
+[C:/Users/LAP PHAN/source/repos/AnonymousChatting/AnonymousChatting/Views/App/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXBwXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/LAP PHAN/source/repos/AnonymousChatting/AnonymousChatting/Views/User/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxJbmRleC5jc2h0bWw=
+[C:/Users/LAP PHAN/source/repos/AnonymousChatting/AnonymousChatting/Views/App/Profile.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXBwXFByb2ZpbGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/LAP PHAN/source/repos/AnonymousChatting/AnonymousChatting/Views/Shared/_Layout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 

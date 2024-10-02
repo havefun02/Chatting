@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("AnonymousChatting")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f5bfc32a4daa359e7ae8a5bf73c1db338a7362db")]
 [assembly: System.Reflection.AssemblyProductAttribute("AnonymousChatting")]
 [assembly: System.Reflection.AssemblyTitleAttribute("AnonymousChatting")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
