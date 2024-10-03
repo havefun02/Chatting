@@ -1,4 +1,5 @@
 ﻿using App.Core;
+using App.Exceptions;
 using App.Models;
 using AutoMapper;
 using Microsoft.AspNetCore.Http.HttpResults;
@@ -8,9 +9,7 @@ namespace App.Services
     public class AppService:IAppService
     {
         private readonly IMapper _mapper;
-        private readonly IServiceProvider _serviceProvider; // Add this line
-
-
+        private readonly IServiceProvider _serviceProvider;
         public AppService(IMapper mapper, IServiceProvider serviceProvider) {
             _mapper = mapper;
             _serviceProvider = serviceProvider; 
@@ -21,7 +20,7 @@ namespace App.Services
             {
                 var _appRepo = scope.ServiceProvider.GetRequiredService<IRepository<Message>>();
                 var dbContext = _appRepo.GetDbSet();
-                var res = await dbContext.Include(u=>u.User).OrderBy(m=>m.CreatedAt).ToListAsync();
+                var res = await dbContext.Include(u => u.User).OrderBy(m => m.CreatedAt).ToListAsync();
                 return res;
             }
         }
@@ -33,7 +32,7 @@ namespace App.Services
 
                 if (_paginateService == null)
                 {
-                    throw new Exception("Internal error");
+                    throw new ServiceUnavailableException("Can't resolve "+typeof(IPaginationService<>));
                 }
                 var _appRepo = scope.ServiceProvider.GetRequiredService<IRepository<Message>>();
                 var dbContext = _appRepo.GetDbSet();
@@ -47,7 +46,7 @@ namespace App.Services
                 var res=await _paginateService.Paginate(queryResult, queryParams) as OffsetPageResult<Message>;
                 if (res == null)
                 {
-                    throw new Exception("Cant find");
+                    throw new ArgumentException("Error occur during try to paginate");
                 }
                 return res;
             }
@@ -59,7 +58,7 @@ namespace App.Services
             {
                 if (messageDto?.Content!.Trim().Length == 0)
                 {
-                    throw new ArgumentNullException(nameof(messageDto.Content));
+                    throw new ArgumentNullException(nameof(messageDto.Content) + " can not be null");
                 }
                 var _appRepo = scope.ServiceProvider.GetRequiredService<IRepository<Message>>();
                 var dbContext = _appRepo.GetDbSet();
@@ -72,7 +71,7 @@ namespace App.Services
                     return messageResult;
                 }
                 else {
-                    throw new Exception("Cannot get message after creating");
+                    throw new UnknownException("Error occur during query messages");
                 }
             }
         }

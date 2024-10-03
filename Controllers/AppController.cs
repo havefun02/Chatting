@@ -1,4 +1,5 @@
 ﻿using App.Core;
+using App.Exceptions;
 using App.Models;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
@@ -20,35 +21,28 @@ namespace App.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            string uniqueId =string.Empty;
-            var cookieValue=string.Empty;
+            string? uniqueId =string.Empty;
             User? user=null;
-            if (HttpContext.Request.Cookies.TryGetValue("UserId", out cookieValue))
+            if (HttpContext.Request.Cookies.TryGetValue("UserId", out uniqueId))
             {
                 try
                 {
-                    uniqueId = cookieValue;
                     user = await this._userService.GetUserById(uniqueId);
                 }
-                catch (Exception ex) { 
-                    if (String.Compare(ex.Message,"User does not exist") == 0)
+                catch (NotFoundException ex) { 
+                    uniqueId = Guid.NewGuid().ToString();
+                    HttpContext.Response.Cookies.Append("UserId", uniqueId, new CookieOptions
                     {
-                        uniqueId = Guid.NewGuid().ToString();
-
-                        HttpContext.Response.Cookies.Append("UserId", uniqueId, new CookieOptions
-                        {
-                            HttpOnly = true, // Optional: Prevents client-side script access
-                            Secure = true, // Optional: Ensure cookie is sent only over HTTPS
-                            SameSite = SameSiteMode.Strict // Optional: Control cross-origin requests
-                        });
-                        user = await this._userService.CreateUser(uniqueId, "Anonymous User");
-                    }
+                        HttpOnly = true, // Optional: Prevents client-side script access
+                        Secure = true, // Optional: Ensure cookie is sent only over HTTPS
+                        SameSite = SameSiteMode.Strict // Optional: Control cross-origin requests
+                    });
+                    user = await this._userService.CreateUser(uniqueId, "Anonymous User");
                 }
             }
             else
             {
                 uniqueId = Guid.NewGuid().ToString();
-
                 HttpContext.Response.Cookies.Append("UserId", uniqueId, new CookieOptions
                 {
                     HttpOnly = true, // Optional: Prevents client-side script access
@@ -92,7 +86,5 @@ namespace App.Controllers
             }
 
         }
-
-
     }
 }

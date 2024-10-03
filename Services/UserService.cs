@@ -1,4 +1,5 @@
 ﻿using App.Core;
+using App.Exceptions;
 using App.Models;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
@@ -13,64 +14,54 @@ namespace App.Services
         }
         public async Task<User> CreateUser(string id, string name)
         {
-            try {
-                var dbContext = this._userRepository.GetDbSet();
-                var user=await dbContext.FirstOrDefaultAsync(u=>u.UserId== id);
-                if (user != null) {
-                    throw new Exception("User existed");
-                }
-                await dbContext.AddAsync(new User { UserId=id,UserName=name});
-                await _userRepository.SaveChangesAsync();
-                var res = await dbContext.FirstOrDefaultAsync(u => u.UserId == id);
-                if (res != null)
-                {
-                    return res;
-                }
-                else { throw new Exception("Internal error"); }
+            var dbContext = this._userRepository.GetDbSet();
+            var user=await dbContext.FirstOrDefaultAsync(u=>u.UserId== id);
+            if (user != null) {
+                throw new NotFoundException("User existed");
             }
-            catch (Exception) { throw; }    
+            await dbContext.AddAsync(new User { UserId=id,UserName=name});
+            await _userRepository.SaveChangesAsync();
+            var res = await dbContext.FirstOrDefaultAsync(u => u.UserId == id);
+            if (res != null)
+            {
+                return res;
+            }
+            else { throw new UnknownException("Internal error"); }
         }
 
-        public async Task<User> GetUserById(string? id)
+        public async Task<User> GetUserById(string id)
         {
             if (string.IsNullOrWhiteSpace(id))
             {
-                throw new ArgumentException("User ID cannot be null or empty.", nameof(id));
+                throw new ArgumentNullException("User ID cannot be null or empty.", nameof(id));
             }
 
-            try
+            var dbContext = this._userRepository.GetDbSet();
+            var res=await dbContext.FirstOrDefaultAsync(u => u.UserId==id);
+            if (res != null)
             {
-                var dbContext = this._userRepository.GetDbSet();
-                var res=await dbContext.FirstOrDefaultAsync(u => u.UserId==id);
-                if (res != null)
-                {
-                    return res;
-                }
-                else { throw new Exception("User does not exist"); }
-
+                return res;
             }
-            catch { throw; }
+            else { throw new NotFoundException("User does not exist"); }
+
         }
         public async Task<User> RenameUser(string id, string newName)
         {
             if (string.IsNullOrWhiteSpace(id))
             {
-                throw new ArgumentException("User ID cannot be null or empty.", nameof(id));
+                throw new ArgumentNullException("User ID cannot be null or empty.", nameof(id));
             }
-            try
+            var dbContext = this._userRepository.GetDbSet();
+            var res = await dbContext.FirstOrDefaultAsync(u => u.UserId == id);
+            if (res != null)
             {
-                var dbContext = this._userRepository.GetDbSet();
-                var res = await dbContext.FirstOrDefaultAsync(u => u.UserId == id);
-                if (res != null)
-                {
-                    res.UserName = newName;
-                    dbContext.Update(res);
-                    await this._userRepository.SaveChangesAsync();
-                    return res;
-                }
-                else { throw new Exception("User does not exist"); }
+                res.UserName = newName;
+                dbContext.Update(res);
+                await this._userRepository.SaveChangesAsync();
+                return res;
             }
-            catch { throw; }
+            else { throw new UnknownException("User does not exist"); }
+            }
         }
 
     }
