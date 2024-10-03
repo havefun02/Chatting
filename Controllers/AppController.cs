@@ -18,6 +18,11 @@ namespace App.Controllers
             _userService = userService; 
             _mapper=mapper;
         }
+        public async Task<IActionResult> Contact()
+        {
+            return  View();
+        }
+
         [HttpGet]
         public async Task<IActionResult> Index()
         {
@@ -29,7 +34,7 @@ namespace App.Controllers
                 {
                     user = await this._userService.GetUserById(uniqueId);
                 }
-                catch (NotFoundException ex) { 
+                catch (NotFoundException) { 
                     uniqueId = Guid.NewGuid().ToString();
                     HttpContext.Response.Cookies.Append("UserId", uniqueId, new CookieOptions
                     {

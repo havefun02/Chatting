@@ -15,11 +15,11 @@ namespace App.Services
         public async Task<User> CreateUser(string id, string name)
         {
             var dbContext = this._userRepository.GetDbSet();
-            var user=await dbContext.FirstOrDefaultAsync(u=>u.UserId== id);
+            var user = await dbContext.FirstOrDefaultAsync(u => u.UserId == id);
             if (user != null) {
                 throw new NotFoundException("User existed");
             }
-            await dbContext.AddAsync(new User { UserId=id,UserName=name});
+            await dbContext.AddAsync(new User { UserId = id, UserName = name });
             await _userRepository.SaveChangesAsync();
             var res = await dbContext.FirstOrDefaultAsync(u => u.UserId == id);
             if (res != null)
@@ -37,7 +37,7 @@ namespace App.Services
             }
 
             var dbContext = this._userRepository.GetDbSet();
-            var res=await dbContext.FirstOrDefaultAsync(u => u.UserId==id);
+            var res = await dbContext.FirstOrDefaultAsync(u => u.UserId == id);
             if (res != null)
             {
                 return res;
@@ -61,8 +61,6 @@ namespace App.Services
                 return res;
             }
             else { throw new UnknownException("User does not exist"); }
-            }
         }
-
     }
 }
