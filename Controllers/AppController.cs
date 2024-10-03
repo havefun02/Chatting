@@ -2,7 +2,6 @@
 using App.Models;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using System.Xml;
 
 namespace App.Controllers
 {
@@ -43,7 +42,6 @@ namespace App.Controllers
                             SameSite = SameSiteMode.Strict // Optional: Control cross-origin requests
                         });
                         user = await this._userService.CreateUser(uniqueId, "Anonymous User");
-
                     }
                 }
             }
@@ -66,19 +64,7 @@ namespace App.Controllers
             var viewModel = new ChatView {  User = user,MessageResult=messageResult };
             return View(viewModel);
         }
-        public async Task<IActionResult> Profile()
-        {
-            string uniqueId = string.Empty;
-            var cookieValue = string.Empty;
-            User? user = null ;
-            if (HttpContext.Request.Cookies.TryGetValue("UserId", out cookieValue))
-            {
-                uniqueId = cookieValue;
-                user = await this._userService.GetUserById(uniqueId);
-            }
-            if (user == null) { throw new Exception("Please reset page"); }
-            return View(user);
-        }
+       
         [HttpGet("app/get-older")]
         public async Task<ActionResult<List<MessageResultDto>>> GetOlder(int offset,int limit)
         {
@@ -86,6 +72,25 @@ namespace App.Controllers
             var chatMessage = await this._appService.GetOffsetMessageAsync(offsetParams);
             var messageResult = _mapper.Map<List<MessageResultDto>>(chatMessage!.Items);
             return messageResult;
+        }
+        [HttpPost("user/rename-user")]
+        public async Task<ActionResult<User>> RenameUser([FromBody] RenameDto userNameDto)
+        {
+            if (userNameDto?.userName!.Trim().Length==0)
+            {
+                return BadRequest();
+            }
+            var cookieValue = string.Empty;
+            if (HttpContext.Request.Cookies.TryGetValue("UserId", out cookieValue))
+            {
+                var res = await this._userService.RenameUser(cookieValue, userNameDto?.userName!);
+                return res;
+            }
+            else
+            {
+                return BadRequest();
+            }
+
         }
 
 

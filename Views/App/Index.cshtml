@@ -5,6 +5,21 @@
 }
 <div class="container">
     <div class="d-flex flex-column mx-3">
+        <div class="name-display d-flex align-items-center">
+            <p id="userName" class="mb-0 mr-2">@Model.User?.UserName</p>
+            <gap class="mx-1">|</gap>
+            <a href="#" id="rename-link" class="text-underline">Rename</a>
+
+            <div id="rename-form" class="align-items-center" style="display: none;">
+                <div style="flex-grow:1; padding:5px 3px 5px 0">
+                    <input type="text" id="new-userName" class="form-control form-control-sm mr-2" placeholder="Enter new name">
+                </div>
+                <div class="rename-button d-flex flex-direction-row"  style="justify-content:center; align-items:center">
+                    <button id="submit-rename" class="btn btn-primary btn-sm">Go</button>
+                    <a id="cancel-rename"  style="font:800; color:red; cursor:pointer">x</a>
+                </div>
+            </div>
+        </div>
         <div  class="message-box" id="message">
             <div id="loadingMessages" class="text-center">
                 <p>Loading messages...</p>
@@ -23,7 +38,7 @@
                 <textarea id="chatInput" class="chat-input" rows="1" placeholder="Type a message..."></textarea>
             </div>
             <div class="send-button">
-            <button style="width:100%; height:100%; background-color:black; color:white; font-weight:600" id="sendMessageButton">Send</button>
+                <button style="width:100%; height:100%; background-color:black; color:white; font-weight:600" id="sendMessageButton">Send</button>
             </div>
         </div>
     </div>
@@ -66,11 +81,16 @@ $(document).ready(function () {
         }
     });
 
+    $('#cancel-rename').click(function () {
+        $('#rename-form').hide();
+         $('#rename-link').show();
+    });
+
     function loadOlderMessages() {
         $('#loadingMessages').show(); 
         setTimeout(function () {
         $.ajax({
-            url: 'http://included-gazelle-tough.ngrok-free.app/app/get-older',
+            url: 'https://included-gazelle-tough.ngrok-free.app/app/get-older',
             type: 'GET',
             data: { offset: currentOffset, limit: 15 }, 
             success: function (data) {
@@ -96,6 +116,36 @@ $(document).ready(function () {
     function scrollToTop() {
             $('#message').scrollTop(0);
         }
+
     scrollToBottom();
+
+    $('#rename-link').click(function (event) {
+        event.preventDefault();
+        $('#rename-link').hide()
+        $('#rename-form').show()
+    });
+
+    $('#submit-rename').click(function (event) {
+        let newName = $("#new-userName").val();
+        if (newName.trim().length!==0){
+                $.ajax({
+                    url: 'https://included-gazelle-tough.ngrok-free.app/user/rename-user',
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify({ userName: newName }),
+                    success: function (response) {
+                        $('#userName').text(newName)
+
+                        $('#rename-form').hide();
+                        $('#rename-link').show();
+                    },
+                    error: function () {
+                        alert('Failed to rename user. Please try again.');
+                    }
+                });
+        }
+    })
+
+
 });
 </script>

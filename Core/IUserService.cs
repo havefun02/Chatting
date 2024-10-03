@@ -5,6 +5,8 @@ namespace App.Core
     {
         public Task<User> GetUserById(string id);
         public Task<User> CreateUser(string id,string name);
+        public Task<User> RenameUser(string id, string name);
+
 
     }
 }
